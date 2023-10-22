@@ -1,0 +1,87 @@
+|bit1
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut << add:I6.CarryOut
+Result << mux4to1:I8.Result
+
+
+|bit1|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit1|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+

@@ -1,0 +1,121 @@
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY andGate IS
+PORT (  a, b : IN STD_LOGIC;
+		  Res : OUT STD_LOGIC);
+END andGate;
+ARCHITECTURE model_conc OF andGate IS
+BEGIN 
+	Res <= a AND b;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY orGate IS
+PORT (  a, b : IN STD_LOGIC;
+		  Res : OUT STD_LOGIC);
+END orGate;
+ARCHITECTURE model_conc OF orGate IS
+BEGIN 
+	Res <= a OR b;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY add IS
+PORT ( a, b, CarryIn : IN STD_LOGIC;
+		 Sum, CarryOut : OUT STD_LOGIC);
+END add;
+ARCHITECTURE model_conc OF add IS
+BEGIN
+	CarryOut <= (in1 AND CarryIn) + (in2 AND CarryIn) + (in1 AND in2);
+	Sum <= (a AND NOT B AND NOT CarryIn) + (NOT a AND b AND NOT CarryIn) + (a AND b AND CarryIn);
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY sub IS
+PORT ( b, Binvert : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+END sub;
+ARCHITECTURE model_conc OF sub IS
+BEGIN
+	Res <= b WHEN (Binvert='0') ELSE NOT b;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY nandor IS
+PORT ( a, Ainvert : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+END nandor;
+ARCHITECTURE model_conc OF nandor IS
+BEGIN
+	Res <= a WHEN (Ainvert='0') ELSE NOT a;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY xorGate IS
+PORT ( a, b : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+END xorGate;
+ARCHITECTURE model_conc OF xorGate IS
+BEGIN
+	Res <= a XOR b;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY operate IS
+PORT ( a, b, c, d, Operation : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+END operate;
+ARCHITECTURE model_conc OF operate IS
+BEGIN
+	Res <= a WHEN (Operation='0') ELSE
+			 b WHEN (Operation='1') ELSE
+			 c WHEN (Operation='2') ELSE
+			 d;
+END model_conc;
+
+library IEEE;
+USE ieee.std_logic_1164.all;
+ENTITY bit1 IS
+PORT ( a, b, Ainvert, Binvert, CarryIn, Operation : IN STD_LOGIC;
+		 Result, CarryOut : OUT ST_LOGIC);
+END bit1;
+ARCHITECTURE structural OF bit1 IS
+	COMPONENT andGate 
+		PORT (  a, b, Operation : IN STD_LOGIC;
+		  Res : OUT STD_LOGIC);
+	END COMPONENT;
+	COMPONENT orGate 
+		PORT (  a, b, Operation : IN STD_LOGIC;
+		  Res : OUT STD_LOGIC);
+	END COMPONENT;
+	COMPONENT add 
+		PORT ( a, b, CarryIn : IN STD_LOGIC;
+			Sum, CarryOut : OUT STD_LOGIC);
+	END COMPONENT;
+	COMPONENT sub
+		PORT ( b, Binvert : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+	END COMPONENT;
+	COMPONENT nandor 
+		PORT ( a, Ainvert : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+	END COMPONENT;
+	COMPONENT xorGate 
+		PORT ( a, b : IN STD_LOGIC;
+		 Res : OUT STD_LOGIC);
+	END COMPONENT;
+BEGIN
+	I0: nandor PORT MAP (a, oros1);
+	I1: sub PORT MAP (b, oros2);
+	I2: andGate PORT MAP (oros1, oros2, oros3);
+	I3: orGate PORT MAP (oros1, oros2, oros4);
+	I4: add PORT MAP (oros1, oros2, CarryIn, oros5, CarryOut);
+	I5: xorGate PORT MAP(oros1, oros2, oros6);
+	I6: operate PORT MAP(oros3, oros4, oros5, oros6, Result);
+END structural;
