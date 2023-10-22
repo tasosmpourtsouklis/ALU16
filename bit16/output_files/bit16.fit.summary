@@ -1,0 +1,11 @@
+Fitter Status : Successful - Sun May 30 05:15:56 2021
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : bit16
+Top-level Entity Name : bit16
+Family : MAX V
+Device : 5M160ZT100C4
+Timing Models : Final
+Total logic elements : 84 / 160 ( 53 % )
+Total pins : 52 / 79 ( 66 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )

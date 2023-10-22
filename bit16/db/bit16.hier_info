@@ -1,0 +1,1477 @@
+|bit16
+a[0] => bit1:I1:0:Bit1s.a
+a[1] => bit1:I1:1:Bit1s.a
+a[2] => bit1:I1:2:Bit1s.a
+a[3] => bit1:I1:3:Bit1s.a
+a[4] => bit1:I1:4:Bit1s.a
+a[5] => bit1:I1:5:Bit1s.a
+a[6] => bit1:I1:6:Bit1s.a
+a[7] => bit1:I1:7:Bit1s.a
+a[8] => bit1:I1:8:Bit1s.a
+a[9] => bit1:I1:9:Bit1s.a
+a[10] => bit1:I1:10:Bit1s.a
+a[11] => bit1:I1:11:Bit1s.a
+a[12] => bit1:I1:12:Bit1s.a
+a[13] => bit1:I1:13:Bit1s.a
+a[14] => bit1:I1:14:Bit1s.a
+a[15] => bit1:I1:15:Bit1s.a
+b[0] => bit1:I1:0:Bit1s.b
+b[1] => bit1:I1:1:Bit1s.b
+b[2] => bit1:I1:2:Bit1s.b
+b[3] => bit1:I1:3:Bit1s.b
+b[4] => bit1:I1:4:Bit1s.b
+b[5] => bit1:I1:5:Bit1s.b
+b[6] => bit1:I1:6:Bit1s.b
+b[7] => bit1:I1:7:Bit1s.b
+b[8] => bit1:I1:8:Bit1s.b
+b[9] => bit1:I1:9:Bit1s.b
+b[10] => bit1:I1:10:Bit1s.b
+b[11] => bit1:I1:11:Bit1s.b
+b[12] => bit1:I1:12:Bit1s.b
+b[13] => bit1:I1:13:Bit1s.b
+b[14] => bit1:I1:14:Bit1s.b
+b[15] => bit1:I1:15:Bit1s.b
+opcode[0] => cc:Control_Cercuit.opcode[0]
+opcode[1] => cc:Control_Cercuit.opcode[1]
+opcode[2] => cc:Control_Cercuit.opcode[2]
+Result[0] <= bit1:I1:0:Bit1s.Result
+Result[1] <= bit1:I1:1:Bit1s.Result
+Result[2] <= bit1:I1:2:Bit1s.Result
+Result[3] <= bit1:I1:3:Bit1s.Result
+Result[4] <= bit1:I1:4:Bit1s.Result
+Result[5] <= bit1:I1:5:Bit1s.Result
+Result[6] <= bit1:I1:6:Bit1s.Result
+Result[7] <= bit1:I1:7:Bit1s.Result
+Result[8] <= bit1:I1:8:Bit1s.Result
+Result[9] <= bit1:I1:9:Bit1s.Result
+Result[10] <= bit1:I1:10:Bit1s.Result
+Result[11] <= bit1:I1:11:Bit1s.Result
+Result[12] <= bit1:I1:12:Bit1s.Result
+Result[13] <= bit1:I1:13:Bit1s.Result
+Result[14] <= bit1:I1:14:Bit1s.Result
+Result[15] <= bit1:I1:15:Bit1s.Result
+Overflow <= ofCheck:OVerflow_Check.Overflow
+
+
+|bit16|cc:Control_Cercuit
+opcode[0] => Mux0.IN10
+opcode[0] => Mux1.IN10
+opcode[0] => Mux3.IN10
+opcode[0] => Mux4.IN10
+opcode[1] => Mux0.IN9
+opcode[1] => Mux1.IN9
+opcode[1] => Mux2.IN5
+opcode[1] => Mux3.IN9
+opcode[1] => Mux4.IN9
+opcode[2] => Mux0.IN8
+opcode[2] => Mux1.IN8
+opcode[2] => Mux2.IN4
+opcode[2] => Mux3.IN8
+opcode[2] => Mux4.IN8
+Ainvert <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+Binvert <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+CarryIn <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+Operation[0] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+Operation[1] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:0:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:0:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:1:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:1:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:2:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:2:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:3:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:3:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:4:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:4:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:5:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:5:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:6:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:6:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:7:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:7:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:8:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:8:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:9:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:9:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:10:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:10:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:11:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:11:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:12:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:12:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:13:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:13:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:14:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:14:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s
+a => notA:I0.a
+a => nandor:I1.a
+b => notB:I2.b
+b => sub:I3.b
+Ainvert => nandor:I1.Ainvert
+Binvert => sub:I3.Binvert
+CarryIn => add:I6.CarryIn
+Operation[0] => mux4to1:I8.Operation[0]
+Operation[1] => mux4to1:I8.Operation[1]
+CarryOut <= add:I6.CarryOut
+Result <= mux4to1:I8.Result
+
+
+|bit16|bit1:\I1:15:Bit1s|notA:I0
+a => Res.DATAIN
+Res <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|nandor:I1
+a => Res.DATAB
+nota => Res.DATAA
+Ainvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|notB:I2
+b => Res.DATAIN
+Res <= b.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|sub:I3
+b => Res.DATAB
+notb => Res.DATAA
+Binvert => Res.OUTPUTSELECT
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|andGate:I4
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|orGate:I5
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|add:I6
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+CarryIn => CarryOut.IN0
+CarryIn => CarryOut.IN0
+CarryIn => Sum.IN1
+CarryIn => Sum.IN1
+a => Sum.IN0
+a => Sum.IN0
+a => CarryOut.IN1
+a => Sum.IN0
+a => Sum.IN0
+b => Sum.IN1
+b => Sum.IN1
+b => CarryOut.IN1
+b => Sum.IN1
+b => Sum.IN1
+Sum <= Sum.DB_MAX_OUTPUT_PORT_TYPE
+CarryOut <= CarryOut.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|xorGate:I7
+a => Res.IN0
+b => Res.IN1
+Res <= Res.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|bit1:\I1:15:Bit1s|mux4to1:I8
+case1 => Mux0.IN0
+case2 => Mux0.IN1
+case3 => Mux0.IN2
+case4 => Mux0.IN3
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Result <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|bit16|ofCheck:OVerflow_Check
+Cn_1 => Overflow.IN0
+Cn => Overflow.IN1
+Operation[0] => Mux0.IN5
+Operation[1] => Mux0.IN4
+Overflow <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
